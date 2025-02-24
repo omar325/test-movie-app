@@ -1,4 +1,4 @@
-package com.avomar.testmovieapp
+package com.avomar.testmovieapp.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,8 +11,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.avomar.testmovieapp.ui.theme.TestMovieAppTheme
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.avomar.testmovieapp.presentation.theme.TestMovieAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,28 +23,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             TestMovieAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                    MovieListScreen(
+                        viewModel = hiltViewModel()
                     )
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    TestMovieAppTheme {
-        Greeting("Android")
     }
 }

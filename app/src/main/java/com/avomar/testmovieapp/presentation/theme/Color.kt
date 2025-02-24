@@ -1,4 +1,4 @@
-package com.avomar.testmovieapp.ui.theme
+package com.avomar.testmovieapp.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
