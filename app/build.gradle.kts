@@ -80,4 +80,10 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-compiler:2.51.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+
+    //  Glide
+    implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
+
+    // Nav
+    implementation("androidx.navigation:navigation-compose:2.5.3")
 }

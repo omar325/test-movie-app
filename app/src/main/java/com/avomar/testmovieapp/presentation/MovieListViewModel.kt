@@ -2,8 +2,7 @@ package com.avomar.testmovieapp.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.avomar.testmovieapp.domain.Movie
-import com.avomar.testmovieapp.framework.remote.RemoteDataSource
+import com.avomar.testmovieapp.data.DataSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MovieListViewModel @Inject constructor(
-    private val remoteDataSource: RemoteDataSource
+    private val dataSource: DataSource
 ): ViewModel() {
     private var _state = MutableStateFlow(MovieListState(loading = true))
     val state = _state.asStateFlow()
@@ -22,10 +21,10 @@ class MovieListViewModel @Inject constructor(
     init {
         viewModelScope.launch(Dispatchers.IO) {
             _state.update {
-                var movies: List<Movie>? = null
+                var movies: List<UiMovie>? = null
                 var error: String? = null
                 try {
-                    movies = remoteDataSource.getPopularMovies().body()?.results
+                    movies = dataSource.getMovies()
                 } catch (e: Exception) {
                     error = e.message
                 }
@@ -41,6 +40,6 @@ class MovieListViewModel @Inject constructor(
 
 data class MovieListState(
     val loading: Boolean = true,
-    val movies: List<Movie>? = null,
+    val movies: List<UiMovie>? = null,
     val error: String? = null
 )
