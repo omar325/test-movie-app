@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TestMovieApp</string>
+    <string name="try_again">Volver a Intentar</string>
+    <string name="data_error">No hay informacion disponible</string>
+</resources>

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TestMovieApp</string>
+    <string name="try_again">Try Again</string>
+    <string name="data_error">No data available, please try again</string>
 </resources>

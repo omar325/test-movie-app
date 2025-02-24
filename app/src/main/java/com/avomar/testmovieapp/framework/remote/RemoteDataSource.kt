@@ -7,10 +7,13 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory.*
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface RemoteDataSource {
     @GET("discover/movie?api_key=${BuildConfig.API_KEY}")
-    suspend fun getPopularMovies(): Response<PopularMoviesResponse>
+    suspend fun getPopularMovies(
+        @Query("language") language: String
+    ): Response<PopularMoviesResponse>
 
     companion object {
         fun provideInstance(): RemoteDataSource = Retrofit.Builder()

@@ -19,6 +19,10 @@ class MovieListViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     init {
+        refreshList()
+    }
+
+    fun refreshList() {
         viewModelScope.launch(Dispatchers.IO) {
             _state.update {
                 var movies: List<UiMovie>? = null
@@ -26,14 +30,24 @@ class MovieListViewModel @Inject constructor(
                 try {
                     movies = dataSource.getMovies()
                 } catch (e: Exception) {
-                    error = e.message
+                    error = "No data available, please try again"
                 }
                 it.copy(
                     loading = false,
                     movies = movies,
+                    filteredMovies = movies,
                     error = error
                 )
             }
+        }
+    }
+
+    fun searchMovie(query: String) {
+        _state.update {
+            it.copy(
+                filteredMovies = _state.value.movies?.filter { it.title.contains(query, ignoreCase = true) },
+                searchQuery = query
+            )
         }
     }
 }
@@ -41,5 +55,8 @@ class MovieListViewModel @Inject constructor(
 data class MovieListState(
     val loading: Boolean = true,
     val movies: List<UiMovie>? = null,
-    val error: String? = null
+    val filteredMovies: List<UiMovie>? = null,
+    val error: String? = null,
+    val searchQuery: String = "",
+    val isSearching: Boolean = false,
 )

@@ -54,8 +54,7 @@ fun MovieDetailScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(170.dp)
-                    .background(Color.Red)) {
+                    .height(170.dp)) {
                 GlideImage(
                     modifier = Modifier
                         .fillMaxSize(),
